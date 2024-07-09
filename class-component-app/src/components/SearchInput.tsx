@@ -6,13 +6,14 @@ interface SearchInputProps {
 
 interface SearchInputState {
   searchTerm: string;
+  searchTerms: string[]; // Добавлено поле searchTerms
 }
 
 class SearchInput extends Component<SearchInputProps, SearchInputState> {
   constructor(props: SearchInputProps) {
     super(props);
-    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
-    this.state = { searchTerm: savedSearchTerm };
+    const savedSearchTerms = JSON.parse(localStorage.getItem('searchTerms') || '[]');
+    this.state = { searchTerm: '', searchTerms: savedSearchTerms };
   }
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +22,11 @@ class SearchInput extends Component<SearchInputProps, SearchInputState> {
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { searchTerm } = this.state;
+    const { searchTerm, searchTerms } = this.state;
+    const updatedSearchTerms = [...searchTerms, searchTerm];
     this.props.onSearch(searchTerm);
-    localStorage.setItem('searchTerm', searchTerm);
+    localStorage.setItem('searchTerms', JSON.stringify(updatedSearchTerms));
+    this.setState({ searchTerm: '', searchTerms: updatedSearchTerms });
   };
 
   render() {
