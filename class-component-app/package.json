@@ -25,7 +25,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format:fix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "prepare": "cd .. && husky class-component-app/.husky",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
