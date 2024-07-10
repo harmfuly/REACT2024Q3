@@ -16,14 +16,14 @@ class SearchInput extends Component<SearchInputProps, SearchInputState> {
   }
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value.trim() });
+    this.setState({ searchTerm: event.target.value });
   };
 
   handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { searchTerm } = this.state;
-    this.props.onSearch(searchTerm);
     localStorage.setItem('searchTerm', searchTerm);
+    this.props.onSearch(searchTerm);
   };
 
   render() {

@@ -11,8 +11,9 @@ interface AppState {
 class App extends Component<Record<string, never>, AppState> {
   constructor(props: Record<string, never>) {
     super(props);
+    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
-      searchTerm: '',
+      searchTerm: savedSearchTerm,
     };
   }
 
@@ -23,6 +24,7 @@ class App extends Component<Record<string, never>, AppState> {
   render() {
     return (
       <ErrorBoundary>
+        ;
         <div className="app-container">
           <div className="search-input-container">
             <SearchInput onSearch={this.handleSearch} />

@@ -1,43 +1,30 @@
 module.exports = {
-  root: true,
   env: {
     browser: true,
-    es2020: true,
+    es2021: true,
   },
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react/recommended'],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 'latest',
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
-  plugins: [
-    '@typescript-eslint',
-    'react',
-    'react-hooks',
-    'prettier',
-    'react-refresh',
-  ],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-  ],
+  plugins: ['@typescript-eslint', 'react', 'react-compiler'],
   rules: {
+    'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    'react/prop-types': 'off',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    quotes: ['error', 'single'],
+    'jsx-quotes': ['error', 'prefer-single'],
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
 };
