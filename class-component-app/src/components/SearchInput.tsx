@@ -30,11 +30,11 @@ class SearchInput extends Component<SearchInputProps, SearchInputState> {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          type="text"
+          type='text'
           value={this.state.searchTerm}
           onChange={this.handleChange}
         />
-        <button type="submit">Search</button>
+        <button type='submit'>Search</button>
       </form>
     );
   }

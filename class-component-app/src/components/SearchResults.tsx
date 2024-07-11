@@ -40,7 +40,7 @@ class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
     this.setState({ loading: true, error: null });
     const url = searchTerm
       ? `https://stapi.co/api/v1/rest/season/search?title=${searchTerm}`
-      : `https://stapi.co/api/v1/rest/season/search`;
+      : 'https://stapi.co/api/v1/rest/season/search';
     axios
       .post(url, null, {
         headers: {
