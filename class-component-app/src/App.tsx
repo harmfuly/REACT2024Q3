@@ -6,6 +6,7 @@ import './App.css';
 
 interface AppState {
   searchTerm: string;
+  hasError: boolean;
 }
 
 class App extends Component<Record<string, never>, AppState> {
@@ -14,6 +15,7 @@ class App extends Component<Record<string, never>, AppState> {
     const savedSearchTerm = localStorage.getItem('searchTerm') || '';
     this.state = {
       searchTerm: savedSearchTerm,
+      hasError: false,
     };
   }
 
@@ -22,10 +24,21 @@ class App extends Component<Record<string, never>, AppState> {
   };
 
   throwError = () => {
-    throw new Error('This is a test error');
+    this.setState({ hasError: true });
   };
 
   render() {
+    if (this.state.hasError) {
+      return (
+        <ErrorBoundary>
+          <div>
+            <h1>Something went wrong.</h1>
+            <p>Please try again later or contact support.</p>
+          </div>
+        </ErrorBoundary>
+      );
+    }
+
     return (
       <ErrorBoundary>
         <div className='app-container'>

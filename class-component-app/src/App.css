@@ -69,3 +69,8 @@ button {
   padding: 10px 20px;
   font-size: 16px;
 }
+
+.error-container {
+  color: red;
+  margin: 0 auto;
+}
