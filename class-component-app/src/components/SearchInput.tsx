@@ -1,46 +1,47 @@
-import { Component, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
 }
 
-interface SearchInputState {
-  searchTerm: string;
-}
+const useLocalStorage = (key: string, initialValue: string) => {
+  const [value, setValue] = useState<string>(() => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue !== null ? storedValue : initialValue;
+  });
 
-class SearchInput extends Component<SearchInputProps, SearchInputState> {
-  constructor(props: SearchInputProps) {
-    super(props);
-    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
-    this.state = { searchTerm: savedSearchTerm };
-  }
+  useEffect(() => {
+    localStorage.setItem(key, value);
+  }, [key, value]);
 
-  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchTerm: event.target.value });
+  return [value, setValue] as const;
+};
+
+const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm', '');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
-  handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { searchTerm } = this.state;
-    localStorage.setItem('searchTerm', searchTerm);
-    this.props.onSearch(searchTerm);
+    onSearch(searchTerm);
   };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="search-form">
-        <input
-          type="text"
-          value={this.state.searchTerm}
-          onChange={this.handleChange}
-          className="search-input"
-        />
-        <button type="submit" className="search-button">
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit} className="search-form">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleChange}
+        className="search-input"
+      />
+      <button type="submit" className="search-button">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchInput;
