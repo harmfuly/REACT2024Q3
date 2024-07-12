@@ -1,9 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-interface SearchResultsProps {
-  searchTerm: string;
-}
 
 interface SearchResult {
   name: string;
@@ -16,29 +12,35 @@ interface SearchResult {
   gender: string;
 }
 
+interface SearchResultsProps {
+  searchTerm: string;
+}
+
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchResults = async (searchTerm: string) => {
+    const fetchResults = async () => {
       setLoading(true);
       setError(null);
-      const url = searchTerm
-        ? `https://swapi.dev/api/people/?search=${searchTerm}`
-        : 'https://swapi.dev/api/people/';
       try {
-        const response = await axios.get(url);
-        setResults(response.data.results);
-        setLoading(false);
-      } catch (error: any) {
-        setError(error.message);
+        if (searchTerm) {
+          const response = await axios.get(`https://swapi.dev/api/people/?search=${searchTerm}`);
+          setResults(response.data.results);
+        } else {
+          setResults([]);
+        }
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'An error occurred');
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchResults(searchTerm);
+    fetchResults();
+
   }, [searchTerm]);
 
   if (loading) {

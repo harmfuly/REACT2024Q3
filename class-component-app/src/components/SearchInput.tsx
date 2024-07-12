@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
 }
 
-const useLocalStorage = (key: string, initialValue: string) => {
-  const [value, setValue] = useState<string>(() => {
-    const storedValue = localStorage.getItem(key);
-    return storedValue !== null ? storedValue : initialValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
-
-  return [value, setValue] as const;
-};
-
 const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm', '');
+  const [searchTerm, setSearchTerm] = useState<string>(() => localStorage.getItem('searchTerm') || '');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    localStorage.setItem('searchTerm', searchTerm);
     onSearch(searchTerm);
   };
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('searchTerm', searchTerm);
+    };
+  }, [searchTerm]);
 
   return (
     <form onSubmit={handleSubmit} className="search-form">
@@ -36,6 +30,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleChange}
         className="search-input"
+        placeholder="Enter search term..."
       />
       <button type="submit" className="search-button">
         Search
