@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import CardList from './CardList';
+import DetailedCard from './DetailedCard';
 
-interface SearchResult {
+export interface SearchResult {
   name: string;
   height: string;
   mass: string;
@@ -18,6 +20,7 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,8 +43,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
     };
 
     fetchResults();
-
   }, [searchTerm]);
+
+  const handleCardClick = (name: string) => {
+    setSelectedCard(name);
+  };
+
+  const handleCloseDetailedCard = () => {
+    setSelectedCard(null);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -51,21 +61,20 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
     return <div>Error: {error}</div>;
   }
 
+  if (selectedCard) {
+    return (
+      <DetailedCard
+        name={selectedCard}
+        onClose={handleCloseDetailedCard}
+      />
+    );
+  }
+
   return (
-    <div className="results-grid">
-      {results.map((result, index) => (
-        <div key={index} className="result-item">
-          <h2>{result.name}</h2>
-          <p>Height: {result.height}</p>
-          <p>Mass: {result.mass}</p>
-          <p>Hair Color: {result.hair_color}</p>
-          <p>Skin Color: {result.skin_color}</p>
-          <p>Eye Color: {result.eye_color}</p>
-          <p>Birth Year: {result.birth_year}</p>
-          <p>Gender: {result.gender}</p>
-        </div>
-      ))}
-    </div>
+    <CardList
+      results={results}
+      onCardClick={handleCardClick}
+    />
   );
 };
 
