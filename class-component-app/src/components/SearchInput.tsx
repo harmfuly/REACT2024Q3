@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { Component, ChangeEvent, FormEvent } from 'react';
 
 interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
@@ -28,13 +28,14 @@ class SearchInput extends Component<SearchInputProps, SearchInputState> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="search-form">
         <input
           type='text'
           value={this.state.searchTerm}
           onChange={this.handleChange}
+          className="search-input"
         />
-        <button type='submit'>Search</button>
+        <button type='submit' className="search-button">Search</button>
       </form>
     );
   }

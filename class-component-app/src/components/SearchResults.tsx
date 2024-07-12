@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import axios from 'axios';
 
 interface SearchResultsProps {
@@ -67,9 +67,9 @@ class SearchResults extends Component<SearchResultsProps, SearchResultsState> {
     }
 
     return (
-      <div>
+      <div className="results-grid">
         {results.map((result, index) => (
-          <div key={index}>
+          <div key={index} className="result-item">
             <h2>{result.title}</h2>
             <p>{result.uid}</p>
           </div>
