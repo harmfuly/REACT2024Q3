@@ -41,14 +41,14 @@ class App extends Component<Record<string, never>, AppState> {
 
     return (
       <ErrorBoundary>
-        <div className='app-container'>
-          <div className='search-input-container'>
+        <div className="app-container">
+          <div className="search-input-container">
             <SearchInput onSearch={this.handleSearch} />
           </div>
-          <div className='search-results-container'>
+          <div className="search-results-container">
             <SearchResults searchTerm={this.state.searchTerm} />
           </div>
-          <div className='error-test-container'>
+          <div className="error-test-container">
             <button onClick={this.throwError}>Throw Error</button>
           </div>
         </div>
