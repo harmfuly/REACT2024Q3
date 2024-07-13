@@ -87,7 +87,9 @@
   font-family: 'Poller One', serif;
 }
 
-h1, p, h2 {
+h1,
+p,
+h2 {
   color: #fff;
   text-align: center;
 }

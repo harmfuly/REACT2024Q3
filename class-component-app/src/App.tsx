@@ -5,7 +5,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const App: React.FC = () => {
-
   const searchPageKey = 'searchPage';
 
   return (

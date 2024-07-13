@@ -30,7 +30,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
       setError(null);
       try {
         if (searchTerm) {
-          const response = await axios.get(`https://swapi.dev/api/people/?search=${searchTerm}`);
+          const response = await axios.get(
+            `https://swapi.dev/api/people/?search=${searchTerm}`,
+          );
           setResults(response.data.results);
         } else {
           setResults([]);
@@ -70,12 +72,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
     );
   }
 
-  return (
-    <CardList
-      results={results}
-      onCardClick={handleCardClick}
-    />
-  );
+  return <CardList results={results} onCardClick={handleCardClick} />;
 };
 
 export default SearchResults;

@@ -8,7 +8,11 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ result, onCardClick }) => {
   return (
-    <div role="button" onClick={() => onCardClick(result.name)} className="result-item">
+    <div
+      role="button"
+      onClick={() => onCardClick(result.name)}
+      className="result-item"
+    >
       <h2>{result.name}</h2>
       <p>Height: {result.height}</p>
       <p>Mass: {result.mass}</p>

@@ -6,7 +6,10 @@ interface DetailedCardProps {
   onClose: () => void;
 }
 
-const DetailedCard: React.FC<DetailedCardProps> = ({ characterName, onClose }) => {
+const DetailedCard: React.FC<DetailedCardProps> = ({
+  characterName,
+  onClose,
+}) => {
   const [characterDetails, setCharacterDetails] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +39,9 @@ const DetailedCard: React.FC<DetailedCardProps> = ({ characterName, onClose }) =
 
   return (
     <div className="detailed-card">
-      <button className="close-button" onClick={onClose}>×</button>
+      <button className="close-button" onClick={onClose}>
+        ×
+      </button>
       <h2>{characterDetails.name}</h2>
       <p>Height: {characterDetails.height}</p>
       <p>Mass: {characterDetails.mass}</p>
