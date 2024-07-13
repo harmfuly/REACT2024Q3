@@ -5,7 +5,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const App: React.FC = () => {
-  // Уникальный ключ для Route, чтобы компонент SearchPage перезагружался при изменении URL
+
   const searchPageKey = 'searchPage';
 
   return (
