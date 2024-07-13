@@ -1,31 +1,53 @@
-// Pagination.tsx
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface PaginationProps {
-  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onPageChange }) => {
-  const getPageLink = (page: number) => `/search/${page}`; // Assuming "/search/:page" route structure
+const Pagination: React.FC<PaginationProps> = ({
+  totalItems,
+  itemsPerPage,
+  currentPage,
+  onPageChange,
+}) => {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.set('page', page.toString());
+    navigate(`?${queryParams.toString()}`);
   };
 
   return (
-    <div className="pagination">
-      {Array.from({ length: totalPages }, (_, index) => {
-        const pageNumber = index + 1;
-        return (
-          <Link key={pageNumber} to={getPageLink(pageNumber)} onClick={() => handlePageChange(pageNumber)}>
-            {pageNumber}
-          </Link>
-        );
-      })}
+    <div>
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        Назад
+      </button>
+      {[...Array(totalPages)].map((_, index) => (
+        <button
+          key={index}
+          onClick={() => handlePageChange(index + 1)}
+          disabled={currentPage === index + 1}
+        >
+          {index + 1}
+        </button>
+      ))}
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        Вперед
+      </button>
     </div>
   );
 };

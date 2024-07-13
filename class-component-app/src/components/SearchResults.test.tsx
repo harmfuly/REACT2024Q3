@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'; // Import jest-dom to extend Jest matchers
+import '@testing-library/jest-dom';
 import axios from 'axios';
 import SearchResults from './SearchResults';
 
@@ -11,12 +11,23 @@ describe('SearchResults component', () => {
     const mockData = {
       data: {
         results: [
-          { name: 'Luke Skywalker', height: '172', mass: '77', hair_color: 'blond', skin_color: 'fair', eye_color: 'blue', birth_year: '19BBY', gender: 'male' }
-        ]
-      }
+          {
+            name: 'Luke Skywalker',
+            height: '172',
+            mass: '77',
+            hair_color: 'blond',
+            skin_color: 'fair',
+            eye_color: 'blue',
+            birth_year: '19BBY',
+            gender: 'male',
+          },
+        ],
+      },
     };
 
-    (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValueOnce(mockData);
+    (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValueOnce(
+      mockData,
+    );
 
     render(<SearchResults searchTerm="Luke" />);
 
@@ -28,7 +39,9 @@ describe('SearchResults component', () => {
   });
 
   it('handles error state correctly', async () => {
-    (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce(new Error('Failed to fetch data'));
+    (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValueOnce(
+      new Error('Failed to fetch data'),
+    );
 
     render(<SearchResults searchTerm="Anakin" />);
 

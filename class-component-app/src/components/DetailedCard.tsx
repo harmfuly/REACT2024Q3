@@ -1,55 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { fetchCharacterDetails } from '../utils/api';
+import { SearchResult } from './SearchResults';
+import React from 'react';
 
 interface DetailedCardProps {
-  characterName: string;
+  character: SearchResult;
   onClose: () => void;
 }
 
-const DetailedCard: React.FC<DetailedCardProps> = ({
-  characterName,
-  onClose,
-}) => {
-  const [characterDetails, setCharacterDetails] = useState<any | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const data = await fetchCharacterDetails(characterName);
-        setCharacterDetails(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error instanceof Error ? error.message : 'An error occurred');
-        setLoading(false);
-      }
-    };
-
-    fetchDetails();
-  }, [characterName]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+const DetailedCard: React.FC<DetailedCardProps> = ({ character, onClose }) => {
+  const {
+    name,
+    height,
+    mass,
+    hair_color,
+    skin_color,
+    eye_color,
+    birth_year,
+    gender,
+  } = character;
 
   return (
     <div className="detailed-card">
       <button className="close-button" onClick={onClose}>
         ×
       </button>
-      <h2>{characterDetails.name}</h2>
-      <p>Height: {characterDetails.height}</p>
-      <p>Mass: {characterDetails.mass}</p>
-      <p>Hair Color: {characterDetails.hair_color}</p>
-      <p>Skin Color: {characterDetails.skin_color}</p>
-      <p>Eye Color: {characterDetails.eye_color}</p>
-      <p>Birth Year: {characterDetails.birth_year}</p>
-      <p>Gender: {characterDetails.gender}</p>
+      <h1>{name}</h1>
+      <p>Height: {height}</p>
+      <p>Mass: {mass}</p>
+      <p>Hair Color: {hair_color}</p>
+      <p>Skin Color: {skin_color}</p>
+      <p>Eye Color: {eye_color}</p>
+      <p>Birth Year: {birth_year}</p>
+      <p>Gender: {gender}</p>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import DetailedCard from './DetailedCard';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 describe('DetailedCard component', () => {
-  it('renders the detailed card with given data', () => {
-    const mockData = {
+  it('renders the detailed card with given character data', () => {
+    const mockCharacter = {
       name: 'Luke Skywalker',
       height: '172',
       mass: '77',
@@ -16,8 +16,20 @@ describe('DetailedCard component', () => {
       gender: 'male',
     };
 
-    render(<DetailedCard data={mockData} />);
-    const detailedCardElement = screen.getByText(/luke skywalker/i);
-    expect(detailedCardElement).toBeInTheDocument();
+    const mockProps = {
+      character: mockCharacter,
+      onClose: jest.fn(),
+    };
+
+    render(<DetailedCard {...mockProps} />);
+
+    expect(screen.getByText(/luke skywalker/i)).toBeInTheDocument();
+    expect(screen.getByText(/height: 172/i)).toBeInTheDocument();
+    expect(screen.getByText(/mass: 77/i)).toBeInTheDocument();
+    expect(screen.getByText(/hair color: blond/i)).toBeInTheDocument();
+    expect(screen.getByText(/skin color: fair/i)).toBeInTheDocument();
+    expect(screen.getByText(/eye color: blue/i)).toBeInTheDocument();
+    expect(screen.getByText(/birth year: 19bby/i)).toBeInTheDocument();
+    expect(screen.getByText(/gender: male/i)).toBeInTheDocument();
   });
 });

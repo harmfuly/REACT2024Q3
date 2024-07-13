@@ -4,7 +4,7 @@ import { SearchResult } from './SearchResults';
 
 interface CardListProps {
   results: SearchResult[];
-  onCardClick: (name: string) => void;
+  onCardClick: (result: SearchResult) => void;
 }
 
 const CardList: React.FC<CardListProps> = ({ results, onCardClick }) => {
