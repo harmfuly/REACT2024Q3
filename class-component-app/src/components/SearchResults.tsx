@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CardList from './CardList';
 import DetailedCard from './DetailedCard';
+import CardList from './CardList';
+import DetailedCard from './DetailedCard';
 
+export interface SearchResult {
 export interface SearchResult {
   name: string;
   height: string;
@@ -20,6 +23,7 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -55,12 +59,29 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
     setSelectedCard(null);
   };
 
+  const handleCardClick = (name: string) => {
+    setSelectedCard(name);
+  };
+
+  const handleCloseDetailedCard = () => {
+    setSelectedCard(null);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (selectedCard) {
+    return (
+      <DetailedCard
+        name={selectedCard}
+        onClose={handleCloseDetailedCard}
+      />
+    );
   }
 
   if (selectedCard) {
