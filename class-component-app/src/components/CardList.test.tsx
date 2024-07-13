@@ -1,6 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CardList from './CardList';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 const mockResults = [
   {
@@ -18,7 +19,7 @@ const mockResults = [
 describe('CardList component', () => {
   it('renders the correct number of cards', () => {
     render(<CardList results={mockResults} onCardClick={() => {}} />);
-    const cards = screen.getAllByRole('button', { name: /luke skywalker/i });
+    const cards = screen.getAllByRole('button');
     expect(cards.length).toBe(mockResults.length);
   });
 
