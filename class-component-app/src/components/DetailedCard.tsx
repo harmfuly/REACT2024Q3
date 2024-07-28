@@ -19,7 +19,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({ character, onClose }) => {
   } = character;
 
   return (
-    <div className="detailed-card">
+    <div className="detailed-card" onClick={onClose}>
       <button className="close-button" onClick={onClose}>
         ×
       </button>

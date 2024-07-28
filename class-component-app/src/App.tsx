@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NotFoundPage from './pages/NotFoundPage';
 import SearchPage from './pages/SearchPage';
