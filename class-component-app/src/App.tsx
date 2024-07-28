@@ -5,6 +5,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import SearchPage from './pages/SearchPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import store from './redux/store';
+import Flyout from './components/Flyout';
 import './App.css';
 
 const App: React.FC = () => {
@@ -19,6 +20,7 @@ const App: React.FC = () => {
               <Route key={searchPageKey} path="/" element={<SearchPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            <Flyout />
           </div>
         </Router>
       </Provider>

@@ -83,11 +83,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='loading'>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className='error'>Error: {error}</div>;
   }
 
   return (

@@ -23,47 +23,35 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    setResults: (state, action: PayloadAction<SearchResult[]>) => {
+    setResults(state, action: PayloadAction<SearchResult[]>) {
       state.results = action.payload;
     },
-    setSelectedCard: (state, action: PayloadAction<SearchResult | null>) => {
+    setSelectedCard(state, action: PayloadAction<SearchResult | null>) {
       state.selectedCard = action.payload;
     },
-    setSelectedItems: (state, action: PayloadAction<string[]>) => {
-      state.selectedItems = action.payload;
-    },
-    toggleSelectedItem: (state, action: PayloadAction<string>) => {
-      const index = state.selectedItems.indexOf(action.payload);
-      if (index === -1) {
-        state.selectedItems.push(action.payload);
-      } else {
-        state.selectedItems.splice(index, 1);
-      }
-    },
-    setLoading: (state, action: PayloadAction<boolean>) => {
+    setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
+    setError(state, action: PayloadAction<string | null>) {
       state.error = action.payload;
     },
-    setCurrentPage: (state, action: PayloadAction<number>) => {
+    setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
+    },
+    toggleSelectedItem(state, action: PayloadAction<string>) {
+      const index = state.selectedItems.indexOf(action.payload);
+      if (index > -1) {
+        state.selectedItems.splice(index, 1);
+      } else {
+        state.selectedItems.push(action.payload);
+      }
+    },
+    unselectAllItems(state) {
+      state.selectedItems = [];
     },
   },
 });
 
-export const {
-  setResults,
-  setSelectedCard,
-  setSelectedItems,
-  toggleSelectedItem,
-  setLoading,
-  setError,
-  setCurrentPage,
-} = searchSlice.actions;
+export const { setResults, setSelectedCard, setLoading, setError, setCurrentPage, toggleSelectedItem, unselectAllItems } = searchSlice.actions;
 
-const rootReducer = {
-  search: searchSlice.reducer,
-};
-
-export default rootReducer;
+export default searchSlice.reducer;
