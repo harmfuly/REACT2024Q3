@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchInput from '../components/SearchInput';
 import SearchResults from '../components/SearchResults';
+import ThemeToggle from '../components/ThemeToggle';
 
 const SearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -16,6 +17,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <div>
+      <ThemeToggle></ThemeToggle>
       <div className="search-input-container">
         <SearchInput onSearch={handleSearch} />
       </div>

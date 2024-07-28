@@ -6,6 +6,7 @@ import SearchPage from './pages/SearchPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import store from './redux/store';
 import Flyout from './components/Flyout';
+import { ThemeProvider } from './components/ThemeContext';
 import './App.css';
 
 const App: React.FC = () => {
@@ -14,6 +15,7 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
+      <ThemeProvider>
         <Router>
           <div className="app-container">
             <Routes>
@@ -23,6 +25,7 @@ const App: React.FC = () => {
             <Flyout />
           </div>
         </Router>
+        </ThemeProvider>
       </Provider>
     </ErrorBoundary>
   );
