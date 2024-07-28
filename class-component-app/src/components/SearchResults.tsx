@@ -5,7 +5,13 @@ import DetailedCard from './DetailedCard';
 import Pagination from './Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
-import { setResults, setSelectedCard, setLoading, setError, setCurrentPage } from '../redux/reducers';
+import {
+  setResults,
+  setSelectedCard,
+  setLoading,
+  setError,
+  setCurrentPage,
+} from '../redux/reducers';
 import { useNavigate } from 'react-router-dom';
 
 export interface SearchResult {
@@ -26,7 +32,9 @@ interface SearchResultsProps {
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { results, selectedCard, loading, error, currentPage } = useSelector((state: RootState) => state.search);
+  const { results, selectedCard, loading, error, currentPage } = useSelector(
+    (state: RootState) => state.search,
+  );
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -40,14 +48,18 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
       try {
         if (searchTerm) {
           const response = await axios.get(
-            `https://swapi.dev/api/people/?search=${searchTerm}&page=${page}`
+            `https://swapi.dev/api/people/?search=${searchTerm}&page=${page}`,
           );
           dispatch(setResults(response.data.results));
         } else {
           dispatch(setResults([]));
         }
       } catch (error) {
-        dispatch(setError(error instanceof Error ? error.message : 'An error occurred'));
+        dispatch(
+          setError(
+            error instanceof Error ? error.message : 'An error occurred',
+          ),
+        );
       } finally {
         dispatch(setLoading(false));
       }

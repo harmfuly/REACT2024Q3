@@ -12,7 +12,9 @@ interface CardListProps {
 
 const CardList: React.FC<CardListProps> = ({ results, onCardClick }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const selectedItems = useSelector((state: RootState) => state.search.selectedItems);
+  const selectedItems = useSelector(
+    (state: RootState) => state.search.selectedItems,
+  );
 
   const handleCheckboxChange = (name: string) => {
     dispatch(toggleSelectedItem(name));
