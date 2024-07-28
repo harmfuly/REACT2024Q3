@@ -7,7 +7,9 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined,
+);
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -23,8 +25,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     document.body.className = `${theme}-theme`;
   }, [theme]);
-
-  console.log('ThemeProvider is rendering with theme:', theme);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

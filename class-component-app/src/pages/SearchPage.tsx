@@ -17,7 +17,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <div>
-      <ThemeToggle></ThemeToggle>
+      <ThemeToggle />
       <div className="search-input-container">
         <SearchInput onSearch={handleSearch} />
       </div>

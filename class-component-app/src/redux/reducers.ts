@@ -52,6 +52,14 @@ const searchSlice = createSlice({
   },
 });
 
-export const { setResults, setSelectedCard, setLoading, setError, setCurrentPage, toggleSelectedItem, unselectAllItems } = searchSlice.actions;
+export const {
+  setResults,
+  setSelectedCard,
+  setLoading,
+  setError,
+  setCurrentPage,
+  toggleSelectedItem,
+  unselectAllItems,
+} = searchSlice.actions;
 
 export default searchSlice.reducer;

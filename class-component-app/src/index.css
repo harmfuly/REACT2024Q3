@@ -22,3 +22,114 @@ body.light-theme::before {
   z-index: 1;
 }
 
+.app-container {
+  position: relative;
+  z-index: 2;
+}
+
+.switcher {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #1414e480;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-family: 'Poller One', serif;
+}
+
+.switcher.light-theme {
+  background-color: #fff;
+  color: #0c0c97;
+}
+
+body.dark-theme h1,
+body.dark-theme p,
+body.dark-theme h2 {
+  color: #fff;
+  text-align: center;
+}
+
+body.light-theme h1,
+body.light-theme p,
+body.light-theme h2 {
+  color: #0c0c97;
+  text-align: center;
+}
+
+.flyout {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.light-theme .flyout {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 5px;
+  font-size: 16px;
+  border: 2px solid rgb(255, 255, 255);
+  background: none;
+  font-family: 'Poller One', serif;
+  color: #fff;
+}
+
+.search-button {
+  padding: 5px 20px;
+  font-size: 16px;
+  background-color: #1414e480;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poller One', serif;
+}
+
+body.light-theme .search-button {
+  background: #fff;
+  color: #0c0c97;
+}
+
+body.light-theme .search-input {
+  background: #08085f80;
+  border: none;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  position: sticky;
+  bottom: 0;
+  background: rgba(198, 198, 198, 0.8);
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: 'Poller One', serif;
+  color: #030356;
+}
+
+body.light-theme .pagination {
+  background: #030356;
+}
+
+body.light-theme button {
+  background: #ffffff4f;
+  color: #fff;
+}

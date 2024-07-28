@@ -17,7 +17,6 @@ html {
   box-sizing: border-box;
 }
 
-
 .search-results {
   display: flex;
   flex: 1;
@@ -68,25 +67,6 @@ html {
   color: #fff;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
-  position: sticky;
-  bottom: 0;
-  background: rgba(198, 198, 198, 0.8);
-  padding: 10px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.pagination button {
-  margin: 0 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-family: 'Poller One', serif;
-}
-
 .pagination button:disabled {
   cursor: not-allowed;
 }
@@ -105,26 +85,6 @@ html {
   justify-content: center;
   gap: 10px;
   width: 50%;
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 5px;
-  font-size: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.233);
-  background: none;
-  font-family: 'Poller One', serif;
-  color: #fff;
-}
-
-.search-button {
-  padding: 5px 20px;
-  font-size: 16px;
-  background-color: #1414e480;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-family: 'Poller One', serif;
 }
 
 .error-test-container {
@@ -147,32 +107,12 @@ html {
   color: #fff;
 }
 
-h1,
-p,
-h2 {
-  color: #fff;
-  text-align: center;
-}
-
 h1 {
   margin: 0 auto;
 }
 
 .loading {
   color: #fff;
-}
-
-.flyout {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .flyout button {

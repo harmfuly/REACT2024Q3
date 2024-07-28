@@ -8,7 +8,9 @@ import { SearchResult } from './SearchResults';
 
 const Flyout: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const selectedItems = useSelector((state: RootState) => state.search.selectedItems);
+  const selectedItems = useSelector(
+    (state: RootState) => state.search.selectedItems,
+  );
   const results = useSelector((state: RootState) => state.search.results);
 
   if (selectedItems.length === 0) return null;
@@ -18,7 +20,9 @@ const Flyout: React.FC = () => {
   };
 
   const handleDownload = () => {
-    const selectedResults = results.filter(result => selectedItems.includes(result.name));
+    const selectedResults = results.filter((result) =>
+      selectedItems.includes(result.name),
+    );
     const csvData = Papa.unparse(selectedResults);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, `${selectedItems.length}_items.csv`);

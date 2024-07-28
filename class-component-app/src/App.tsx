@@ -15,16 +15,16 @@ const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-      <ThemeProvider>
-        <Router>
-          <div className="app-container">
-            <Routes>
-              <Route key={searchPageKey} path="/" element={<SearchPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-            <Flyout />
-          </div>
-        </Router>
+        <ThemeProvider>
+          <Router>
+            <div className="app-container">
+              <Routes>
+                <Route key={searchPageKey} path="/" element={<SearchPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+              <Flyout />
+            </div>
+          </Router>
         </ThemeProvider>
       </Provider>
     </ErrorBoundary>
