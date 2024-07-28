@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import CardList from './CardList';
 import DetailedCard from './DetailedCard';
 import Pagination from './Pagination';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../redux/store';
+import { setResults, setSelectedCard, setLoading, setError, setCurrentPage } from '../redux/reducers';
+import { useNavigate } from 'react-router-dom';
 
 export interface SearchResult {
   name: string;
@@ -21,63 +24,58 @@ interface SearchResultsProps {
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [selectedCard, setSelectedCard] = useState<SearchResult | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 10;
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const location = useLocation();
+  const { results, selectedCard, loading, error, currentPage } = useSelector((state: RootState) => state.search);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const page = parseInt(queryParams.get('page') || '1', 10);
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
 
     const fetchResults = async () => {
-      setLoading(true);
-      setError(null);
+      dispatch(setLoading(true));
+      dispatch(setError(null));
       try {
         if (searchTerm) {
           const response = await axios.get(
             `https://swapi.dev/api/people/?search=${searchTerm}&page=${page}`
           );
-          setResults(response.data.results);
+          dispatch(setResults(response.data.results));
         } else {
-          setResults([]);
+          dispatch(setResults([]));
         }
       } catch (error) {
-        setError(error instanceof Error ? error.message : 'An error occurred');
+        dispatch(setError(error instanceof Error ? error.message : 'An error occurred'));
       } finally {
-        setLoading(false);
+        dispatch(setLoading(false));
       }
     };
 
     fetchResults();
-  }, [searchTerm, location.search]);
+  }, [searchTerm, location.search, dispatch]);
 
   const handleCardClick = (character: SearchResult) => {
-    setSelectedCard(character);
-    navigate(`/?page=${currentPage}&details=${character.name}`);
+    dispatch(setSelectedCard(character));
+    navigate(`?page=${currentPage}&details=${character.name}`);
   };
 
   const handleCloseDetailedCard = () => {
-    setSelectedCard(null);
-    navigate(`/?page=${currentPage}`);
+    dispatch(setSelectedCard(null));
   };
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    navigate(`/?page=${page}`);
+    dispatch(setCurrentPage(page));
+    navigate(`?page=${page}`);
   };
 
   if (loading) {
-    return <div className='loading'>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div className='error'>Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (
@@ -93,14 +91,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
           />
         )}
       </div>
-      {selectedCard && (
-        <div className="details-section">
+      <div className="details-section">
+        {selectedCard && (
           <DetailedCard
             character={selectedCard}
             onClose={handleCloseDetailedCard}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

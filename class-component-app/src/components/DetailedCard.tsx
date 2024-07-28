@@ -1,5 +1,5 @@
-import { SearchResult } from './SearchResults';
 import React from 'react';
+import { SearchResult } from './SearchResults';
 
 interface DetailedCardProps {
   character: SearchResult;
@@ -19,7 +19,7 @@ const DetailedCard: React.FC<DetailedCardProps> = ({ character, onClose }) => {
   } = character;
 
   return (
-    <div className="detailed-card" onClick={onClose}>
+    <div className="detailed-card">
       <button className="close-button" onClick={onClose}>
         ×
       </button>
