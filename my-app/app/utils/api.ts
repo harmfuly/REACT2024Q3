@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ApiResponse } from '../components/SearchResults';
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.dev/api/' }),
   endpoints: (builder) => ({
-    getPosts: builder.query<any[], string>({
-      query: (searchTerm) => `posts?search=${searchTerm}`,
+    getPeople: builder.query<ApiResponse, string>({
+      query: (searchTerm) => `people/?search=${searchTerm}`,
     }),
   }),
 });
 
-export const { useGetPostsQuery } = api;
+export const { useGetPeopleQuery } = api;

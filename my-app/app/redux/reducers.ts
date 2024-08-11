@@ -29,6 +29,6 @@ const searchSlice = createSlice({
   },
 });
 
-export const { unselectAllItems } = searchSlice.actions;
+export const { unselectAllItems, toggleSelectedItem } = searchSlice.actions;
 
 export default searchSlice.reducer;

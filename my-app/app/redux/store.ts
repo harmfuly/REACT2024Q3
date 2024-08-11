@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { api } from '../utils/api';
-import searchReducer from './searchSlice';
 
 export const store = configureStore({
   reducer: {
-    search: searchReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
