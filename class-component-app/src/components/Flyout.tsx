@@ -13,7 +13,7 @@ const Flyout: React.FC = () => {
   );
   const results = useSelector((state: RootState) => state.search.results);
 
-  if (selectedItems.length === 0) return null;
+  if (!selectedItems || selectedItems.length === 0) return null;
 
   const handleUnselectAll = () => {
     dispatch(unselectAllItems());

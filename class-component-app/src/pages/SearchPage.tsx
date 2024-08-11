@@ -13,6 +13,7 @@ const SearchPage: React.FC = () => {
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
+    localStorage.setItem('searchTerm', term);
   };
 
   return (

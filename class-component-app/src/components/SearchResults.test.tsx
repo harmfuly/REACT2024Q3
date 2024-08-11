@@ -3,8 +3,14 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import SearchResults from './SearchResults';
+import { Provider } from 'react-redux';
+import { store } from '../redux/store';
 
 jest.mock('axios');
+
+const renderWithRedux = (component: React.ReactNode) => {
+  return render(<Provider store={store}>{component}</Provider>);
+};
 
 describe('SearchResults component', () => {
   it('renders loading state and results correctly', async () => {
@@ -43,7 +49,7 @@ describe('SearchResults component', () => {
       new Error('Failed to fetch data'),
     );
 
-    render(<SearchResults searchTerm="Anakin" />);
+    renderWithRedux(<SearchResults searchTerm="Anakin" />);
 
     await waitFor(() => {
       expect(screen.getByText(/error/i)).toBeInTheDocument();

@@ -1,14 +1,11 @@
-import React from 'react';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 interface SearchInputProps {
   onSearch: (searchTerm: string) => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState<string>(
-    () => localStorage.getItem('searchTerm') || '',
-  );
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -16,15 +13,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    localStorage.setItem('searchTerm', searchTerm);
     onSearch(searchTerm);
   };
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('searchTerm', searchTerm);
-    };
-  }, [searchTerm]);
 
   return (
     <form onSubmit={handleSubmit} className="search-form">
@@ -34,6 +24,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
         onChange={handleChange}
         className="search-input"
         placeholder="Enter search term..."
+        name="searchTerm"
+        id="searchTerm"
       />
       <button type="submit" className="search-button">
         Search
