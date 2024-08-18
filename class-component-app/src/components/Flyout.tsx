@@ -1,27 +1,28 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
-import { unselectAllItems } from '../redux/reducers';
+import { submitForm } from '../redux/store';
 import { saveAs } from 'file-saver';
 import * as Papa from 'papaparse';
-import { SearchResult } from './SearchResults';
+
+interface SearchResult {
+  name: string;
+}
 
 const Flyout: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const selectedItems = useSelector(
-    (state: RootState) => state.search.selectedItems,
-  );
-  const results = useSelector((state: RootState) => state.search.results);
+  const selectedItems = useSelector((state: RootState) => state.formData);
+  const results = useSelector((state: RootState) => state.formData);
 
   if (!selectedItems || selectedItems.length === 0) return null;
 
   const handleUnselectAll = () => {
-    dispatch(unselectAllItems());
+
   };
 
   const handleDownload = () => {
-    const selectedResults = results.filter((result) =>
-      selectedItems.includes(result.name),
+    const selectedResults = results.filter((result: SearchResult) =>
+      selectedItems.some(item => item.name === result.name),
     );
     const csvData = Papa.unparse(selectedResults);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });

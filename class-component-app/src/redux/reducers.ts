@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { FormData, RootState as FormRootState } from '../redux/types/formTypes';
 import { SearchResult } from '../components/SearchResults';
 
 interface SearchState {
@@ -6,14 +7,20 @@ interface SearchState {
   results: SearchResult[];
 }
 
-const initialState: SearchState = {
+
+const initialSearchState: SearchState = {
   selectedItems: [],
   results: [],
 };
 
+const initialFormState: FormRootState = {
+  formData: [],
+};
+
+
 const searchSlice = createSlice({
   name: 'search',
-  initialState,
+  initialState: initialSearchState,
   reducers: {
     unselectAllItems(state) {
       state.selectedItems = [];
@@ -29,6 +36,22 @@ const searchSlice = createSlice({
   },
 });
 
-export const { unselectAllItems } = searchSlice.actions;
+function formReducer(state = initialFormState, action: any): FormRootState {
+  switch (action.type) {
+    case 'SUBMIT_FORM':
+      return {
+        ...state,
+        formData: [...state.formData, action.payload],
+      };
+    default:
+      return state;
+  }
+}
 
-export default searchSlice.reducer;
+export const rootReducer = {
+  search: searchSlice.reducer,
+  form: formReducer,
+};
+
+export const { unselectAllItems, toggleSelectedItem } = searchSlice.actions;
+
