@@ -17,7 +17,8 @@ export const api = createApi({
   endpoints: (builder) => ({
     getCharacters: builder.query<Character[], string>({
       query: (searchTerm) => `people/?search=${searchTerm}`,
-      transformResponse: (response: { results: Character[] }) => response.results,
+      transformResponse: (response: { results: Character[] }) =>
+        response.results,
     }),
   }),
 });

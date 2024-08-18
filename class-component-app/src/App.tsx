@@ -23,8 +23,14 @@ const App: React.FC = () => {
             <div className="app-container">
               <Routes>
                 <Route path="/" element={<MainPage />} />
-                <Route path="/uncontrolled-form" element={<UncontrolledFormPage />} />
-                <Route path="/react-hook-form" element={<ReactHookFormPage />} />
+                <Route
+                  path="/uncontrolled-form"
+                  element={<UncontrolledFormPage />}
+                />
+                <Route
+                  path="/react-hook-form"
+                  element={<ReactHookFormPage />}
+                />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
               <Flyout />

@@ -7,7 +7,6 @@ interface SearchState {
   results: SearchResult[];
 }
 
-
 const initialSearchState: SearchState = {
   selectedItems: [],
   results: [],
@@ -16,7 +15,6 @@ const initialSearchState: SearchState = {
 const initialFormState: FormRootState = {
   formData: [],
 };
-
 
 const searchSlice = createSlice({
   name: 'search',
@@ -54,4 +52,3 @@ export const rootReducer = {
 };
 
 export const { unselectAllItems, toggleSelectedItem } = searchSlice.actions;
-

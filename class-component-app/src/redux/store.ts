@@ -12,14 +12,12 @@ interface FormData {
   country: string;
 }
 
-
 interface FormState {
   formData: FormData[];
 }
 
-
 const initialState: FormState = {
-  formData: []
+  formData: [],
 };
 
 const formSlice = createSlice({
@@ -32,10 +30,8 @@ const formSlice = createSlice({
   },
 });
 
-
 export const { submitForm } = formSlice.actions;
 const rootReducer = formSlice.reducer;
-
 
 export const store = configureStore({
   reducer: rootReducer,

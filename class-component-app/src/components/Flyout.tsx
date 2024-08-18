@@ -16,13 +16,11 @@ const Flyout: React.FC = () => {
 
   if (!selectedItems || selectedItems.length === 0) return null;
 
-  const handleUnselectAll = () => {
-
-  };
+  const handleUnselectAll = () => {};
 
   const handleDownload = () => {
     const selectedResults = results.filter((result: SearchResult) =>
-      selectedItems.some(item => item.name === result.name),
+      selectedItems.some((item) => item.name === result.name),
     );
     const csvData = Papa.unparse(selectedResults);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });

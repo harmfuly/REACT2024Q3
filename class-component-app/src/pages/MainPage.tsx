@@ -15,9 +15,15 @@ const MainPage: React.FC = () => {
       <div>
         {formData.map((data: any, index: number) => (
           <div key={index} className="form-tile">
-            <p><strong>Name:</strong> {data.name}</p>
-            <p><strong>Age:</strong> {data.age}</p>
-            <p><strong>Email:</strong> {data.email}</p>
+            <p>
+              <strong>Name:</strong> {data.name}
+            </p>
+            <p>
+              <strong>Age:</strong> {data.age}
+            </p>
+            <p>
+              <strong>Email:</strong> {data.email}
+            </p>
           </div>
         ))}
       </div>

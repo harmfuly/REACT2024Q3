@@ -27,9 +27,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchTerm }) => {
 
   return (
     <ul>
-      {data?.map((character) => (
-        <li key={character.name}>{character.name}</li>
-      ))}
+      {data?.map((character) => <li key={character.name}>{character.name}</li>)}
     </ul>
   );
 };
