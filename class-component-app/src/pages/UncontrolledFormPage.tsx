@@ -5,16 +5,19 @@ import { useNavigate } from 'react-router-dom';
 const UncontrolledFormPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     const formData = new FormData(event.target as HTMLFormElement);
     const name = formData.get('name') as string;
     const age = formData.get('age') as string;
     const email = formData.get('email') as string;
+    const gender = formData.get('gender') as string;
+    const termsAccepted = formData.get('termsAccepted') === 'on';
+    const picture = formData.get('picture') as File;
 
     const validationErrors: { [key: string]: string } = {};
 
@@ -27,6 +30,18 @@ const UncontrolledFormPage: React.FC = () => {
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       validationErrors.email = 'Email must be a valid email address.';
     }
+    if (!gender) {
+      validationErrors.gender = 'Gender is required.';
+    }
+    if (!termsAccepted) {
+      validationErrors.termsAccepted = 'You must accept the terms and conditions.';
+    }
+    if (picture && picture.size > 2 * 1024 * 1024) { // Max 2MB
+      validationErrors.picture = 'File too large.';
+    }
+    if (picture && !['image/png', 'image/jpeg'].includes(picture.type)) {
+      validationErrors.picture = 'Unsupported file type.';
+    }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -37,6 +52,9 @@ const UncontrolledFormPage: React.FC = () => {
       name,
       age: Number(age),
       email,
+      gender,
+      termsAccepted,
+      picture: URL.createObjectURL(picture),
     };
 
     dispatch({ type: 'SUBMIT_FORM', payload: data });
@@ -59,6 +77,27 @@ const UncontrolledFormPage: React.FC = () => {
         <label htmlFor="email">Email:</label>
         <input type="email" name="email" id="email" />
         {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+      </div>
+      <div>
+        <label htmlFor="gender">Gender:</label>
+        <select name="gender" id="gender">
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        {errors.gender && <div style={{ color: 'red' }}>{errors.gender}</div>}
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" name="termsAccepted" />
+          I accept the terms and conditions
+        </label>
+        {errors.termsAccepted && <div style={{ color: 'red' }}>{errors.termsAccepted}</div>}
+      </div>
+      <div>
+        <label htmlFor="picture">Picture:</label>
+        <input type="file" name="picture" id="picture" />
+        {errors.picture && <div style={{ color: 'red' }}>{errors.picture}</div>}
       </div>
       <button type="submit">Submit</button>
     </form>
