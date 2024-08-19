@@ -1,0 +1,146 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 50px;
+  font-family: 'Poller One';
+  box-sizing: border-box;
+  color: white;
+}
+
+.search-results {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.results-section {
+  flex: 1;
+  padding: 10px;
+}
+
+.result-item {
+  display: flex;
+  gap: 120px;
+}
+
+.result-item input {
+  width: 30px;
+}
+
+.details-section {
+  flex: 1;
+  padding: 10px;
+  border-left: 1px solid #ccc;
+  position: relative;
+  overflow-y: auto;
+}
+
+.detailed-card {
+  position: relative;
+  padding: 20px 60px;
+  background-color: #ffffff27;
+  border: 1px solid #ccc;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.detailed-card .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+}
+
+.search-input-container {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 50%;
+}
+
+.error-test-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.error-test-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e4141480;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poller One', serif;
+}
+
+.error {
+  color: #fff;
+}
+
+h1 {
+  margin: 0 auto;
+}
+
+.loading {
+  color: #fff;
+}
+
+.flyout button {
+  background-color: #1414e480;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 10px;
+  font-family: 'Poller One', serif;
+}
+nav {
+  margin-top: 30px;
+  display: flex;
+  gap: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form button {
+  font-family: 'Poller One';
+  background: #1414e480;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+}
